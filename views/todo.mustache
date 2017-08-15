@@ -9,35 +9,31 @@
 </head>
 <body>
     <h1> TODO List</h1>
+    <section>
+        <form action = "/" method = "post" class = "form-container"/>
+            <input class = "text-box " type ="text" name = "newTodo"/>
+            <button class = "submit" type = "submit " value = "Add new todo"/>Todo</button>
 
-    <form action = "/" method = "post" class = "form-container"/>
-        <input class = "text-box " type ="text" name = "newTodo"/>
-        <button class = "submit" type = "submit " value = "Add new todo"/>Todo</button>
-
-    </form>
-
-    <form action = "/{{listItem}}" method = "post">
-       {{#todoList}}{{^complete}}
+        </form>
+            {{#todoList}}
+            {{^complete}}
+        <form action = "/{{id}}" method = "post">
             <div class="item-container">
             <span class = "not-complete-button" ><button  class="complete" type="submit" name="Completed">Complete</button></span><p class="not-complete-item">{{listItem}}</p>
-            </div>{{/complete}}
+            </div>
         </form>
-           
-               <div class="completed">
+
+           {{/complete}}
+           {{/todoList}}
+         <div class="completed">
+             <h1> Completed Items List</h1>
+
                 {{#todoList}}
                 {{#complete}}
-                {{/complete}}
-                {{/todoList}}
+                <span><strike><p> {{listItem}}</p></strike></span>  
+        </div>
+            {{/complete}}
+            {{/todoList}}
 
-               </div>
-            <span><strike><p></p></strike></span>
-           
-
-{{/todoList}}
-  
-
-
-      
-    
 </body>
 </html>

@@ -14,8 +14,11 @@ application.set('view engine', 'mustache');
 
 application.set('views', './views');
 
-application.use(bodyParser.urlencoded()); 
-application.use(expressValidator());
+// parse application/x-www-form-urlencoded
+application.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+application.use(bodyParser.json())
 
 application.use(express.static('public'));
 //application.use(expressValidator);
@@ -42,36 +45,54 @@ application.post('/', (request, response) => {
     //{ else {
         var Todos = {};
         Todos.listItem = newTodo;
-        Todos.id =todoList.length;
+        // Todos.id =todoList.length;
         Todos.complete = false;
+        Todos.id=todoList.length;
       todoList.push(Todos);  // datafile.todo.push(newTodo)
-    //  console.log(Todos);
+      console.log(Todos);
+      console.log(todoList);
      response.render('todo',{todoList:todoList});
  //   }
 });
 
-application.post('/:id', (request, response)=> {
+// application.post('/:id', (request, response)=> {
    
-   //var taskToComplete = request.params.taskName;
+//    var item = request.params.id;
+   
 
-   var item = request.params.listItem;
-console.log (request.params.listItem);
-    for (var i = 0; i<todoList.length; i++) {
-      
-      if(item == itemList[i]) {
-          console.log(todos[i]);
+//    for (let i = 0; i < todoList.length; i++) {
+//        if(item === [i]){
+//        //todoList[i].complete = true;
+//        console.log(todoList[i]);
+//        console.log([i].todoList)
+//     //   [i].Todos[complete] = true};
+//        console.log(todoList[i].complete);
+       
+//        response.redirect('/');
+//    }
+//     // response.render('todo',{todoList:todoList});
+// };
 
-          itemList[i].complete = true;
-          console.log(itemList[i].complete);
+application.post('/:id', (request,response) =>{
 
-      }
-   }
-    response.render('todo',{todoList:todoList});
-})
+    var item = parseInt(request.params.id);
+    var todoToFind = todoList.find(q=> q.id === item);
+   // for(let i = 0; i < todoList.length; i++) {
 
+  //      if(item === todoList[i]){
+           
 
+       
+        console.log(todoList.id);
+        todoToFind.complete = true;
+        console.log('---------------------------');
+        response.render('todo',{todoList:todoList});
+
+          
+    
+});
 
 
 application.listen(3000, function () {
-  console.log('Successfully started express application!');
+   console.log('Successfully started express application!');
 });
