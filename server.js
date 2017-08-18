@@ -10,6 +10,7 @@ const expressValidator = require('express-validator');
 var application = express();
 
 application.engine('mustache', mustacheExpress());
+
 application.set('view engine', 'mustache');
 
 application.set('views', './views');
@@ -83,7 +84,7 @@ application.post('/:id', (request,response) =>{
            
 
        
-        console.log(todoList.id);
+        console.log(todoToFind.id);
         todoToFind.complete = true;
         console.log('---------------------------');
         response.render('todo',{todoList:todoList});
